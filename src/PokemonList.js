@@ -6,7 +6,7 @@ export default function PokemonList({ pokemon, pokeImage, shinyImage }) {
       <div>
         {pokemon.map((p, index) => (
           <div key={p}>
-            {p}
+            <h1>{p}</h1>
             <img src={pokeImage[index]} alt={pokemon} />
             <img src={shinyImage[index]} alt="shiny" />
           </div>
