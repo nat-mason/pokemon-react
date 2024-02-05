@@ -5,10 +5,11 @@ export default function PokemonList({ pokemon, pokeImage }) {
     <>
       <div>
         {pokemon.map((p) => (
-          <div key={p}>{p}</div>
+          <div key={p}>
+            {p}
+            <img src={pokeImage} alt="Pokemon" />
+          </div>
         ))}
-        <img src={pokeImage} alt="Pokemon" />
-        <script>console.log(pokeImage)</script>
       </div>
     </>
   );
