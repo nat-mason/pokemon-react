@@ -39,7 +39,7 @@ function App() {
       axios
         .get(pokeURL[0])
         .then((res) => {
-          console.log(res.data.sprites.front_default);
+          setPokeImage(res.data.sprites.front_default);
         })
         .catch((error) => {
           console.error(new Error("error getting pokemon data", error));
@@ -61,7 +61,7 @@ function App() {
 
   return (
     <>
-      <PokemonList pokemon={pokemon} />
+      <PokemonList pokemon={pokemon} pokeImage={pokeImage} />
       <Pagination
         goToNextPage={nextPageURL ? goToNextPage : null}
         goToPreviousPage={previousPageURL ? goToPreviousPage : null}

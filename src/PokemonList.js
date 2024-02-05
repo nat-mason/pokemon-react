@@ -1,14 +1,14 @@
 import React from "react";
 
-export default function PokemonList({ pokemon, pokeURL }) {
+export default function PokemonList({ pokemon, pokeImage }) {
   return (
     <>
       <div>
         {pokemon.map((p) => (
           <div key={p}>{p}</div>
         ))}
-        <img src={pokeURL} alt="Pokemon" />
-        <script>console.log(pokeURL)</script>
+        <img src={pokeImage} alt="Pokemon" />
+        <script>console.log(pokeImage)</script>
       </div>
     </>
   );
