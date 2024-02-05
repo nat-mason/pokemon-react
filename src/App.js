@@ -10,6 +10,7 @@ function App() {
   const [currentPageURL, setCurrentPageURL] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
+  const [pokeImage, setPokeImage] = useState();
   const [nextPageURL, setNextPageURL] = useState();
   const [previousPageURL, setPreviousPageURL] = useState();
   const [loading, setLoading] = useState(true);
@@ -26,11 +27,27 @@ function App() {
         setNextPageURL(res.data.next);
         setPreviousPageURL(res.data.previous);
         setPokemon(res.data.results.map((p) => p.name));
-        //setPokeURL(res.data.results.map((p) => p.url));
+        setPokeURL(res.data.results.map((p) => p.url));
         console.log(res.data.results);
       });
     return () => cancel();
   }, [currentPageURL]);
+
+  useEffect(() => {
+    if (pokeURL && pokeURL.length > 0) {
+      console.log(pokeURL[0]);
+      axios
+        .get(pokeURL[0])
+        .then((res) => {
+          console.log(res.data.sprites.front_default);
+        })
+        .catch((error) => {
+          console.error(new Error("error getting pokemon data", error));
+        });
+    } else {
+      console.log(Error);
+    }
+  }, [pokeURL]);
 
   function goToNextPage() {
     setCurrentPageURL(nextPageURL);
