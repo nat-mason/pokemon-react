@@ -6,6 +6,7 @@ import Pagination from "./Pagination";
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
+  const [pokeURL, setPokeURL] = useState([]);
   const [currentPageURL, setCurrentPageURL] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
@@ -25,6 +26,8 @@ function App() {
         setNextPageURL(res.data.next);
         setPreviousPageURL(res.data.previous);
         setPokemon(res.data.results.map((p) => p.name));
+        //setPokeURL(res.data.results.map((p) => p.url));
+        console.log(res.data.results);
       });
     return () => cancel();
   }, [currentPageURL]);
@@ -43,8 +46,8 @@ function App() {
     <>
       <PokemonList pokemon={pokemon} />
       <Pagination
-        goToNextPage={goToNextPage}
-        goToPreviousPage={goToPreviousPage}
+        goToNextPage={nextPageURL ? goToNextPage : null}
+        goToPreviousPage={previousPageURL ? goToPreviousPage : null}
       />
     </>
   );
