@@ -10,7 +10,7 @@ function App() {
   const [currentPageURL, setCurrentPageURL] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
-  const [pokeImage, setPokeImage] = useState();
+  const [pokeImage, setPokeImage] = useState([]);
   const [nextPageURL, setNextPageURL] = useState();
   const [previousPageURL, setPreviousPageURL] = useState();
   const [loading, setLoading] = useState(true);
@@ -34,19 +34,26 @@ function App() {
   }, [currentPageURL]);
 
   useEffect(() => {
-    if (pokeURL && pokeURL.length > 0) {
-      console.log(pokeURL[0]);
-      axios
-        .get(pokeURL[0])
-        .then((res) => {
-          setPokeImage(res.data.sprites.front_default);
-        })
-        .catch((error) => {
-          console.error(new Error("error getting pokemon data", error));
-        });
-    } else {
-      console.log(Error);
-    }
+    const fetchPokemonData = async () => {
+      try {
+        if (pokeURL && pokeURL.length > 0) {
+          const promises = pokeURL.map(async (url) => {
+            const res = await axios.get(url);
+            return res.data.sprites.front_default;
+          });
+
+          const spriteURLs = await Promise.all(promises);
+          console.log(spriteURLs);
+          setPokeImage(spriteURLs); // Assuming you want to set the first image only
+        } else {
+          console.error(new Error("No Pokemon URLs available"));
+        }
+      } catch (error) {
+        console.error(new Error("Error getting pokemon data", error));
+      }
+    };
+
+    fetchPokemonData();
   }, [pokeURL]);
 
   function goToNextPage() {
