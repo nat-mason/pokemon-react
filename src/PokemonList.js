@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PokemonList({ pokemon, pokeImage }) {
+export default function PokemonList({ pokemon, pokeImage, shinyImage }) {
   return (
     <>
       <div>
@@ -8,6 +8,7 @@ export default function PokemonList({ pokemon, pokeImage }) {
           <div key={p}>
             {p}
             <img src={pokeImage[index]} alt={pokemon} />
+            <img src={shinyImage[index]} alt="shiny" />
           </div>
         ))}
       </div>

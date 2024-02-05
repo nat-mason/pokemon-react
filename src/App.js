@@ -11,6 +11,7 @@ function App() {
     "https://pokeapi.co/api/v2/pokemon"
   );
   const [pokeImage, setPokeImage] = useState([]);
+  const [shinyImage, setShinyImage] = useState([]);
   const [nextPageURL, setNextPageURL] = useState();
   const [previousPageURL, setPreviousPageURL] = useState();
   const [loading, setLoading] = useState(true);
@@ -39,12 +40,15 @@ function App() {
         if (pokeURL && pokeURL.length > 0) {
           const promises = pokeURL.map(async (url) => {
             const res = await axios.get(url);
-            return res.data.sprites.front_default;
+            const normal = res.data.sprites.front_default;
+            const shiny = res.data.sprites.front_shiny;
+            return { normal, shiny };
           });
 
           const spriteURLs = await Promise.all(promises);
           console.log(spriteURLs);
-          setPokeImage(spriteURLs); // Assuming you want to set the first image only
+          setPokeImage(spriteURLs.map((sprites) => sprites.normal));
+          setShinyImage(spriteURLs.map((sprites) => sprites.shiny));
         } else {
           console.error(new Error("No Pokemon URLs available"));
         }
@@ -54,6 +58,7 @@ function App() {
     };
 
     fetchPokemonData();
+    return;
   }, [pokeURL]);
 
   function goToNextPage() {
@@ -68,7 +73,11 @@ function App() {
 
   return (
     <>
-      <PokemonList pokemon={pokemon} pokeImage={pokeImage} />
+      <PokemonList
+        pokemon={pokemon}
+        pokeImage={pokeImage}
+        shinyImage={shinyImage}
+      />
       <Pagination
         goToNextPage={nextPageURL ? goToNextPage : null}
         goToPreviousPage={previousPageURL ? goToPreviousPage : null}
