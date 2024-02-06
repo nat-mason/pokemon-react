@@ -5,7 +5,7 @@ export default function PokemonList({ pokemon, pokeImage, shinyImage }) {
     <>
       <div>
         {pokemon.map((p, index) => (
-          <div className="card" key={p}>
+          <div className="card" style={{ width: 18 + "em" }} key={p}>
             <img
               src={pokeImage[index]}
               className="card-img-top"
