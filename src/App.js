@@ -59,10 +59,11 @@ function App() {
             const normal = res.data.sprites.front_default;
             console.log(normal);
             const shiny = res.data.sprites.front_shiny;
-            return { normal, shiny, primaryType };
+            return { normal, shiny, primaryType, secondaryType };
           });
 
           const spriteURLs = await Promise.all(promises);
+          setSecondType(spriteURLs.map((type) => type.secondaryType));
           setPokeType(spriteURLs.map((type) => type.primaryType));
           setPokeImage(spriteURLs.map((sprites) => sprites.normal));
           setShinyImage(spriteURLs.map((sprites) => sprites.shiny));
@@ -95,6 +96,7 @@ function App() {
         pokeImage={pokeImage}
         shinyImage={shinyImage}
         pokeType={pokeType}
+        secondType={secondType}
       />
       <Pagination
         goToNextPage={nextPageURL ? goToNextPage : null}

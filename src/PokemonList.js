@@ -5,6 +5,7 @@ export default function PokemonList({
   pokeImage,
   shinyImage,
   pokeType,
+  secondType,
 }) {
   return (
     <>
@@ -20,7 +21,8 @@ export default function PokemonList({
             <div className="card-body">
               <h5 className="card-title">{p}</h5>
               <p className="card-text">
-                {p}'s primary type is {pokeType[index]}
+                {p}'s primary type is {pokeType[index]} and the second type is{" "}
+                {secondType[index]}
               </p>
               <a href="#" className="btn btn-primary">
                 Go somewhere
