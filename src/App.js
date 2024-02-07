@@ -44,7 +44,14 @@ function App() {
             const res = await axios.get(url);
             console.log(res.data.types[0].type.name);
             const primaryType = res.data.types[0].type.name;
-            const secondaryType = res.data.types[1].type.name;
+            //let secondaryType;
+            res.data.types[1].type.name
+              ? console.log(res.data.types[1].type.name)
+              : console.log("no second type");
+            // res.data.types[1].type.name
+            //? secondaryType === res.data.types[1].type.name
+            //: secondaryType === null;
+
             const normal = res.data.sprites.front_default;
             console.log(normal);
             const shiny = res.data.sprites.front_shiny;
