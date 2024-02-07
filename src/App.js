@@ -7,6 +7,8 @@ import Pagination from "./Pagination";
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [pokeURL, setPokeURL] = useState([]);
+  const [pokeType, setPokeType] = useState([]);
+  const [secondType, setSecondType] = useState([]);
   const [currentPageURL, setCurrentPageURL] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
@@ -40,13 +42,17 @@ function App() {
         if (pokeURL && pokeURL.length > 0) {
           const promises = pokeURL.map(async (url) => {
             const res = await axios.get(url);
+            console.log(res.data.types[0].type.name);
+            const primaryType = res.data.types[0].type.name;
+            const secondaryType = res.data.types[1].type.name;
             const normal = res.data.sprites.front_default;
+            console.log(normal);
             const shiny = res.data.sprites.front_shiny;
-            return { normal, shiny };
+            return { normal, shiny, primaryType };
           });
 
           const spriteURLs = await Promise.all(promises);
-          console.log(spriteURLs);
+          setPokeType(spriteURLs.map((type) => type.primaryType));
           setPokeImage(spriteURLs.map((sprites) => sprites.normal));
           setShinyImage(spriteURLs.map((sprites) => sprites.shiny));
         } else {
@@ -77,6 +83,7 @@ function App() {
         pokemon={pokemon}
         pokeImage={pokeImage}
         shinyImage={shinyImage}
+        pokeType={pokeType}
       />
       <Pagination
         goToNextPage={nextPageURL ? goToNextPage : null}
