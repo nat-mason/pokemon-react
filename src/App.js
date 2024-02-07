@@ -42,12 +42,17 @@ function App() {
         if (pokeURL && pokeURL.length > 0) {
           const promises = pokeURL.map(async (url) => {
             const res = await axios.get(url);
-            console.log(res.data.types[1].type.name);
-            const primaryType = res.data.types[0].type.name;
+            console.log(res.data.types[0].type.name);
             let secondaryType;
-            res.data.types[0].type.name.length > 0
+            res.data.types.length > 1
               ? (secondaryType = res.data.types[1].type.name)
-              : (secondaryType = "");
+              : (secondaryType = null);
+            const primaryType = res.data.types[0].type.name;
+            console.log(res.data.types.length);
+            //let secondaryType;
+            //res.data.types[1].type.name.length > 0
+            // ? (secondaryType = res.data.types[1].type.name)
+            // : (secondaryType = "");
             //let secondaryType;
             //res.data.types[1].type.name
             //? console.log(res.data.types[1].type.name)
