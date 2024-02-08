@@ -13,6 +13,7 @@ function App() {
   const [currentPageURL, setCurrentPageURL] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
+  const [infoURL, setInfoURL] = useState([]);
   const [pokeImage, setPokeImage] = useState([]);
   const [shinyImage, setShinyImage] = useState([]);
   const [nextPageURL, setNextPageURL] = useState();
@@ -50,13 +51,14 @@ function App() {
               : (secondaryType = null);
             const primaryType = res.data.types[0].type.name;
             console.log(res.data.species.url);
-
+            const info = res.data.species.url;
             const normal = res.data.sprites.front_default;
             const shiny = res.data.sprites.front_shiny;
-            return { normal, shiny, primaryType, secondaryType };
+            return { normal, shiny, primaryType, secondaryType, info };
           });
           // parse all the data into appropriate state variables
           const spriteURLs = await Promise.all(promises);
+          setInfoURL(spriteURLs.map((url) => url.info));
           setSecondType(spriteURLs.map((type) => type.secondaryType));
           setPokeType(spriteURLs.map((type) => type.primaryType));
           setPokeImage(spriteURLs.map((sprites) => sprites.normal));
