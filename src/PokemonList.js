@@ -1,5 +1,6 @@
 import React from "react";
 
+// set the props and generate the html
 export default function PokemonList({
   pokemon,
   pokeImage,
