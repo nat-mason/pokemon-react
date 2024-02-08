@@ -82,8 +82,10 @@ function App() {
     setCurrentPageURL(previousPageURL);
   }
 
+  // set the loading function
   if (loading) return "Loading......";
 
+  // return the components and set important variables
   return (
     <>
       <PokemonList
