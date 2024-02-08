@@ -14,6 +14,7 @@ function App() {
     "https://pokeapi.co/api/v2/pokemon"
   );
   const [infoURL, setInfoURL] = useState([]);
+  const [pokeData, setPokeData] = useState([]);
   const [pokeImage, setPokeImage] = useState([]);
   const [shinyImage, setShinyImage] = useState([]);
   const [nextPageURL, setNextPageURL] = useState();
@@ -75,6 +76,25 @@ function App() {
     return;
   }, [pokeURL]);
 
+  useEffect(() => {
+    const fetchPokemonInfo = async () => {
+      try {
+        const promises = infoURL.map(async (url) => {
+          const res = await axios.get(url);
+          const entryData = res.data.flavor_text_entries[1].flavor_text;
+          console.log(res.data.flavor_text_entries[1]);
+          return { entryData };
+        });
+        const dataInfo = await Promise.all(promises);
+        setPokeData(dataInfo.map((data) => data.entryData));
+      } catch (error) {
+        console.error(new Error("Error pokedex gathering"));
+      }
+    };
+    fetchPokemonInfo();
+    return;
+  }, [infoURL]);
+
   // function to go to the next page
   function goToNextPage() {
     setCurrentPageURL(nextPageURL);
@@ -97,6 +117,7 @@ function App() {
         shinyImage={shinyImage}
         pokeType={pokeType}
         secondType={secondType}
+        pokeData={pokeData}
       />
       <Pagination
         goToNextPage={nextPageURL ? goToNextPage : null}

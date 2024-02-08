@@ -7,6 +7,7 @@ export default function PokemonList({
   shinyImage,
   pokeType,
   secondType,
+  pokeData,
 }) {
   return (
     <>
@@ -26,6 +27,7 @@ export default function PokemonList({
                 {secondType[index] !== null
                   ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
+                {pokeData[index]}
               </p>
               <a href="#" className="btn btn-primary">
                 Go somewhere
