@@ -49,6 +49,7 @@ function App() {
               ? (secondaryType = res.data.types[1].type.name)
               : (secondaryType = null);
             const primaryType = res.data.types[0].type.name;
+            console.log(res.data.species.url);
 
             const normal = res.data.sprites.front_default;
             const shiny = res.data.sprites.front_shiny;
