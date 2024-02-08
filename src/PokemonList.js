@@ -23,7 +23,7 @@ export default function PokemonList({
               <p className="card-text">
                 {p}'s primary type is {pokeType[index]} and{" "}
                 {secondType[index] !== null
-                  ? "it's secondary type is " + secondType[index]
+                  ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
               </p>
               <a href="#" className="btn btn-primary">

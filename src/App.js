@@ -4,6 +4,7 @@ import PokemonList from "./PokemonList";
 import axios from "axios";
 import Pagination from "./Pagination";
 
+// Set the state variables
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [pokeURL, setPokeURL] = useState([]);
@@ -18,6 +19,7 @@ function App() {
   const [previousPageURL, setPreviousPageURL] = useState();
   const [loading, setLoading] = useState(true);
 
+  //hook to retireve pokemon urls
   useEffect(() => {
     setLoading(true);
     let cancel;
@@ -31,42 +33,28 @@ function App() {
         setPreviousPageURL(res.data.previous);
         setPokemon(res.data.results.map((p) => p.name));
         setPokeURL(res.data.results.map((p) => p.url));
-        console.log(res.data.results);
       });
     return () => cancel();
   }, [currentPageURL]);
 
+  // Hook to retrieve pokemon info
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
         if (pokeURL && pokeURL.length > 0) {
           const promises = pokeURL.map(async (url) => {
             const res = await axios.get(url);
-            console.log(res.data.types[0].type.name);
             let secondaryType;
             res.data.types.length > 1
               ? (secondaryType = res.data.types[1].type.name)
               : (secondaryType = null);
             const primaryType = res.data.types[0].type.name;
-            console.log(res.data.types.length);
-            //let secondaryType;
-            //res.data.types[1].type.name.length > 0
-            // ? (secondaryType = res.data.types[1].type.name)
-            // : (secondaryType = "");
-            //let secondaryType;
-            //res.data.types[1].type.name
-            //? console.log(res.data.types[1].type.name)
-            //: console.log("no second type");
-            // res.data.types[1].type.name
-            //? secondaryType === res.data.types[1].type.name
-            //: secondaryType === null;
 
             const normal = res.data.sprites.front_default;
-            console.log(normal);
             const shiny = res.data.sprites.front_shiny;
             return { normal, shiny, primaryType, secondaryType };
           });
-
+          // parse all the data into appropriate state variables
           const spriteURLs = await Promise.all(promises);
           setSecondType(spriteURLs.map((type) => type.secondaryType));
           setPokeType(spriteURLs.map((type) => type.primaryType));
@@ -79,15 +67,17 @@ function App() {
         console.error(new Error("Error getting pokemon data", error));
       }
     };
-
+    // run the fetch
     fetchPokemonData();
     return;
   }, [pokeURL]);
 
+  // function to go to the next page
   function goToNextPage() {
     setCurrentPageURL(nextPageURL);
   }
 
+  // function to load previous page
   function goToPreviousPage() {
     setCurrentPageURL(previousPageURL);
   }
