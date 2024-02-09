@@ -76,11 +76,13 @@ function App() {
     return;
   }, [pokeURL]);
 
+  // hook to retrieve pokedex data
   useEffect(() => {
     const fetchPokemonInfo = async () => {
       try {
         const promises = infoURL.map(async (url) => {
           const res = await axios.get(url);
+          // entry index 3 is in english
           const entryData = res.data.flavor_text_entries[3].flavor_text;
           console.log(res.data.flavor_text_entries[3]);
           return { entryData };
