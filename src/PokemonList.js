@@ -8,10 +8,14 @@ export default function PokemonList({
   secondType,
   pokeData,
 }) {
-  const [shinyMode, setShinyMode] = useState(false);
+  const [shinyModes, setShinyModes] = useState([]);
 
   const toggleShinyMode = (index) => {
-    setShinyMode((prevMode) => !prevMode);
+    setShinyModes((prevModes) => {
+      const newModes = [...prevModes];
+      newModes[index] = !newModes[index];
+      return newModes;
+    });
   };
 
   return (
@@ -20,7 +24,7 @@ export default function PokemonList({
         {pokemon.map((p, index) => (
           <div className="card" style={{ width: 10 + "rem" }} key={p}>
             <img
-              src={shinyMode ? shinyImage[index] : pokeImage[index]}
+              src={shinyModes[index] ? shinyImage[index] : pokeImage[index]}
               className="card-img-top"
               alt={pokemon}
             />
@@ -37,7 +41,7 @@ export default function PokemonList({
                 onClick={() => toggleShinyMode(index)}
                 className="btn btn-primary"
               >
-                {shinyMode ? "View Regular" : "View Shiny"}
+                {shinyModes[index] ? "View Regular" : "View Shiny"}
               </button>
             </div>
           </div>
