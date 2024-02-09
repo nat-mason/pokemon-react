@@ -81,8 +81,8 @@ function App() {
       try {
         const promises = infoURL.map(async (url) => {
           const res = await axios.get(url);
-          const entryData = res.data.flavor_text_entries[1].flavor_text;
-          console.log(res.data.flavor_text_entries[1]);
+          const entryData = res.data.flavor_text_entries[3].flavor_text;
+          console.log(res.data.flavor_text_entries[3]);
           return { entryData };
         });
         const dataInfo = await Promise.all(promises);

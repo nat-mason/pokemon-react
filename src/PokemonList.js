@@ -27,11 +27,11 @@ export default function PokemonList({
                 {secondType[index] !== null
                   ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
-                {pokeData[index]}
+                . {pokeData[index]}
               </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
+              <button href="#" className="btn btn-primary">
+                View Shiny
+              </button>
             </div>
           </div>
         ))}
