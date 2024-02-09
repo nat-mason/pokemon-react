@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// init important variables
 export default function PokemonList({
   pokemon,
   pokeImage,
@@ -8,8 +9,10 @@ export default function PokemonList({
   secondType,
   pokeData,
 }) {
+  // set up button state
   const [shinyModes, setShinyModes] = useState([]);
 
+  // button function
   const toggleShinyMode = (index) => {
     setShinyModes((prevModes) => {
       const newModes = [...prevModes];
@@ -18,11 +21,12 @@ export default function PokemonList({
     });
   };
 
+  // return bootstrap
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {pokemon.map((p, index) => (
-          <div className="card" style={{ width: 10 + "rem" }} key={p}>
+          <div className="card" style={{ width: 12 + "rem" }} key={p}>
             <img
               src={shinyModes[index] ? shinyImage[index] : pokeImage[index]}
               className="card-img-top"
