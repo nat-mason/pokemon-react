@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 
-// set the props and generate the html
 export default function PokemonList({
   pokemon,
   pokeImage,
@@ -9,17 +8,22 @@ export default function PokemonList({
   secondType,
   pokeData,
 }) {
+  const [shinyMode, setShinyMode] = useState(false);
+
+  const toggleShinyMode = (index) => {
+    setShinyMode((prevMode) => !prevMode);
+  };
+
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {pokemon.map((p, index) => (
           <div className="card" style={{ width: 10 + "rem" }} key={p}>
             <img
-              src={pokeImage[index]}
+              src={shinyMode ? shinyImage[index] : pokeImage[index]}
               className="card-img-top"
               alt={pokemon}
             />
-            <img src={shinyImage[index]} className="card-img-top" alt="shiny" />
             <div className="card-body">
               <h5 className="card-title">{p}</h5>
               <p className="card-text">
@@ -29,8 +33,11 @@ export default function PokemonList({
                   : "It does not have a secondary type"}
                 . {pokeData[index]}
               </p>
-              <button href="#" className="btn btn-primary">
-                View Shiny
+              <button
+                onClick={() => toggleShinyMode(index)}
+                className="btn btn-primary"
+              >
+                {shinyMode ? "View Regular" : "View Shiny"}
               </button>
             </div>
           </div>
