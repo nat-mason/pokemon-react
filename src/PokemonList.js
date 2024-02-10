@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // init important variables
 export default function PokemonList({
@@ -20,6 +20,23 @@ export default function PokemonList({
       return newModes;
     });
   };
+  const cleanData = (index) => {
+    return pokeData[index]
+      .replace(/\f/g, "")
+      .replace(/\u00ad\n/g, "")
+      .replace(/\u00ad/g, "")
+      .replace(/ -\n/g, " - ")
+      .replace(/-\n/g, "-")
+      .replace(/\n/g, " ");
+  };
+
+  useEffect(() => {
+    if (pokeData && pokeData.length > 0) {
+      pokemon.forEach((p, index) => {
+        console.log(cleanData(index));
+      });
+    }
+  }, [pokemon, pokeData]);
 
   // return bootstrap
   return (
@@ -39,7 +56,7 @@ export default function PokemonList({
                 {secondType[index] !== null
                   ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
-                . {pokeData[index]}
+                .{cleanData(index)}
               </p>
               <button
                 onClick={() => toggleShinyMode(index)}
