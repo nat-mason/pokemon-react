@@ -22,7 +22,7 @@ export default function PokemonList({
   };
   const cleanData = (index) => {
     return pokeData[index]
-      .replace(/\f/g, "")
+      .replace(/\f/g, " ")
       .replace(/\u00ad\n/g, "")
       .replace(/\u00ad/g, "")
       .replace(/ -\n/g, " - ")
