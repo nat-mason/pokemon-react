@@ -41,9 +41,15 @@ export default function PokemonList({
   // return bootstrap
   return (
     <>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", backgroundColor: "black" }}
+      >
         {pokemon.map((p, index) => (
-          <div className="card" style={{ width: 12 + "rem" }} key={p}>
+          <div
+            className="card text-bg-dark mb-3 border-danger"
+            style={{ width: 12 + "rem" }}
+            key={p}
+          >
             <img
               src={shinyModes[index] ? shinyImage[index] : pokeImage[index]}
               className="card-img-top"
@@ -56,7 +62,7 @@ export default function PokemonList({
                 {secondType[index] !== null
                   ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
-                .{cleanData(index)}
+                . {/*cleanData(index)*/}
               </p>
               <button
                 onClick={() => toggleShinyMode(index)}
