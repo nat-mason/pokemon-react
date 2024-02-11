@@ -62,7 +62,7 @@ export default function PokemonList({
                 {secondType[index] !== null
                   ? "its secondary type is " + secondType[index]
                   : "It does not have a secondary type"}
-                . {/*cleanData(index)*/}
+                . {cleanData(index)}
               </p>
               <button
                 onClick={() => toggleShinyMode(index)}
